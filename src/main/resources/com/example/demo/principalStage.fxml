@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="523.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.PrincipalStageController">
+   <children>
+      <Pane layoutX="-7.0" layoutY="93.0" prefHeight="430.0" prefWidth="884.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fx:id="note" fitHeight="198.0" fitWidth="379.0" layoutX="272.0" pickOnBounds="true" preserveRatio="true" />
+            <GridPane layoutX="7.0" layoutY="304.0" prefHeight="90.0" prefWidth="884.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="AOption" mnemonicParsing="false" onAction="#onClickA" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="BOption" mnemonicParsing="false" onAction="#onClickB" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="COption" mnemonicParsing="false" onAction="#onClickC" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="DOption" mnemonicParsing="false" onAction="#onClickD" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+               </children>
+            </GridPane>
+            <Text fx:id="resultado" layoutX="298.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="326.13671875">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane layoutX="-6.0" layoutY="-5.0" prefHeight="98.0" prefWidth="884.0" style="-fx-background-color: black;" />
+   </children>
+</AnchorPane>
