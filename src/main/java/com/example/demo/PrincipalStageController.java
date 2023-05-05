@@ -3,11 +3,13 @@ package com.example.demo;
 import com.example.demo.strings.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,6 +17,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.*;
+import java.util.Arrays;
+
+
 
 public class PrincipalStageController implements Initializable {
 
@@ -30,19 +35,60 @@ public class PrincipalStageController implements Initializable {
     private Button DOption;
     @FXML
     private Text resultado;
+    @FXML
+    private Spinner<String> instrument_selec = new Spinner<>();
+    @FXML
+    private Button btn_listen;
+    @FXML
+    private ImageView instrument_pic = new ImageView();
 
     Notes musicalNotes = new Notes();
     List<String> availableNotes = new ArrayList<>();
     List<String> buttonNotes = new ArrayList<>();
 
     private String correctNote;
+    private final Instruments instruments = new Instruments();
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         getAvailableNotes();
         restartGame();
+        selectInstrument();
+        loadInstrumentPics();
+
 
     }
+
+    private void loadInstrumentPics() {
+        Map<String, String> instrumentImageMap = new HashMap<>();
+        instrumentImageMap.put("Acoustic Guitar", instruments.getAcustic_guitar());
+        instrumentImageMap.put("Electric Guitar", instruments.getElectric_guitar());
+        instrumentImageMap.put("Bass", instruments.getBass());
+        instrumentImageMap.put("Piano", instruments.getPiano());
+        instrument_selec.valueProperty().addListener((observable, oldValue, newValue) -> {
+            String imagePath = instrumentImageMap.get(newValue);
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+            instrument_pic.setImage(image);
+        });
+    }
+
+    private void selectInstrument() {
+        ObservableList<String> instrumentList = FXCollections.observableArrayList(
+                "Acoustic Guitar",
+                "Electric Guitar",
+                "Bass",
+                "Piano"
+        );
+
+        instrument_selec.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<>(instrumentList));
+        instrument_selec.valueProperty().addListener((observable, oldValue, newValue) -> {
+            // Hacer algo con el elemento seleccionado
+        });
+    }
+
 
     @FXML
     private void onClickA(ActionEvent event) {
@@ -109,7 +155,7 @@ public class PrincipalStageController implements Initializable {
         Random random = new Random();
         int i = random.nextInt(buttonNotes.size());
         correctNote = buttonNotes.get(i);
-        Image image = new Image(getClass().getResourceAsStream(correctNote));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(correctNote)));
         note.setImage(image);
     }
 
@@ -120,7 +166,7 @@ public class PrincipalStageController implements Initializable {
         Random random = new Random();
         int i = random.nextInt(buttonNotes.size());
         correctNote = buttonNotes.get(i);
-        Image image = new Image(getClass().getResourceAsStream(correctNote));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(correctNote)));
         note.setImage(image);
         updateButtons();
     }
@@ -143,6 +189,7 @@ public class PrincipalStageController implements Initializable {
     private void getAvailableNotes() {
         availableNotes = new ArrayList<>(
                 Arrays.asList(musicalNotes.getDO(),
+                        musicalNotes.getRE(),
                         musicalNotes.getMI(),
                         musicalNotes.getFA(),
                         musicalNotes.getSOL(),

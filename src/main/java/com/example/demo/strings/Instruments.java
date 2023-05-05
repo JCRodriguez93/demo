@@ -14,11 +14,11 @@ public class Instruments {
         return electric_guitar;
     }
 
-    public static String getBass() {
+    public  String getBass() {
         return bass;
     }
 
-    public static String getPiano() {
+    public  String getPiano() {
         return piano;
     }
 }
