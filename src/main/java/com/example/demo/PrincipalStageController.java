@@ -1,24 +1,30 @@
 package com.example.demo;
 
-import com.example.demo.strings.*;
+import com.example.demo.instruments.AcousticGuitar;
+import com.example.demo.strings.Instruments;
+import com.example.demo.strings.Notes;
+import com.example.demo.strings.Sounds;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
 import java.net.URL;
 import java.util.*;
-import java.util.Arrays;
-
 
 
 public class PrincipalStageController implements Initializable {
@@ -48,7 +54,6 @@ public class PrincipalStageController implements Initializable {
 
     private String correctNote;
     private final Instruments instruments = new Instruments();
-
 
 
     @Override
@@ -91,23 +96,28 @@ public class PrincipalStageController implements Initializable {
 
 
     @FXML
-    private void onClickA(ActionEvent event) {
+    private void onClickA() {
         checkResponse(AOption);
     }
 
     @FXML
-    private void onClickB(ActionEvent event) {
+    private void onClickB() {
         checkResponse(BOption);
     }
 
     @FXML
-    private void onClickC(ActionEvent event) {
+    private void onClickC() {
         checkResponse(COption);
     }
 
     @FXML
-    private void onClickD(ActionEvent event) {
+    private void onClickD() {
         checkResponse(DOption);
+    }
+
+    @FXML
+    private void onClickListen() {
+        AcousticGuitar.play(getCorrectNote(correctNote));
     }
 
     private void checkResponse(Button button) {
@@ -180,7 +190,7 @@ public class PrincipalStageController implements Initializable {
 
     private void suffleNotes() {
         Collections.shuffle(availableNotes);
-        buttonNotes = new ArrayList();
+        buttonNotes = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             buttonNotes.add(availableNotes.get(i));
         }
@@ -205,6 +215,12 @@ public class PrincipalStageController implements Initializable {
         int inicio = imagen.lastIndexOf("/") + 1;
         int fin = imagen.lastIndexOf(".");
         return imagen.substring(inicio, fin);
+    }
+
+    private String getCorrectNote(String note) {
+        int inicio = note.lastIndexOf("/") + 1;
+        int fin = note.lastIndexOf(".");
+        return note.substring(inicio, fin);
     }
 
 }
