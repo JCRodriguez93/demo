@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.instruments.AcousticGuitar;
+import com.example.demo.instruments.Piano;
 import com.example.demo.strings.Instruments;
 import com.example.demo.strings.Notes;
 import com.example.demo.strings.Sounds;
@@ -44,8 +45,6 @@ public class PrincipalStageController implements Initializable {
     @FXML
     private Spinner<String> instrument_selec = new Spinner<>();
     @FXML
-    private Button btn_listen;
-    @FXML
     private ImageView instrument_pic = new ImageView();
 
     Notes musicalNotes = new Notes();
@@ -69,8 +68,8 @@ public class PrincipalStageController implements Initializable {
 
     private void loadInstrumentPics() {
         Map<String, String> instrumentImageMap = new HashMap<>();
-        instrumentImageMap.put("Acoustic Guitar", instruments.getAcustic_guitar());
-        instrumentImageMap.put("Electric Guitar", instruments.getElectric_guitar());
+        instrumentImageMap.put("Acoustic Guitar", instruments.getAcousticGuitar());
+        instrumentImageMap.put("Electric Guitar", instruments.getElectricGuitar());
         instrumentImageMap.put("Bass", instruments.getBass());
         instrumentImageMap.put("Piano", instruments.getPiano());
         instrument_selec.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -82,16 +81,9 @@ public class PrincipalStageController implements Initializable {
 
     private void selectInstrument() {
         ObservableList<String> instrumentList = FXCollections.observableArrayList(
-                "Acoustic Guitar",
-                "Electric Guitar",
-                "Bass",
-                "Piano"
-        );
-
+                "Acoustic Guitar","Electric Guitar", "Bass", "Piano" );
         instrument_selec.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<>(instrumentList));
-        instrument_selec.valueProperty().addListener((observable, oldValue, newValue) -> {
-            // Hacer algo con el elemento seleccionado
-        });
+
     }
 
 
@@ -117,7 +109,15 @@ public class PrincipalStageController implements Initializable {
 
     @FXML
     private void onClickListen() {
-        AcousticGuitar.play(getCorrectNote(correctNote));
+
+        switch (instrument_selec.getValue()){
+            case "Acoustic Guitar" -> AcousticGuitar.play(getCorrectNote(correctNote));
+            case "Bass" -> System.out.println("por hacer bajo");
+            case "Electric Guitar" -> System.out.println("por hacer guitarra electrica");
+            case "Piano" -> Piano.play(getCorrectNote(correctNote));
+        }
+
+
     }
 
     private void checkResponse(Button button) {

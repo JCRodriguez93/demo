@@ -2,23 +2,22 @@ package com.example.demo.instruments;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
 import java.util.Objects;
 
 public class AcousticGuitar {
 
     private static final String[] NOTES = {
-            "/instruments/AcusticGuitar/RE.mp3",
-            "/instruments/AcusticGuitar/MI.mp3",
-            "/instruments/AcusticGuitar/FA.mp3",
-            "/instruments/AcusticGuitar/SOL.mp3",
-            "/instruments/AcusticGuitar/LA.mp3",
-            "/instruments/AcusticGuitar/SI.mp3",
-            "/instruments/AcusticGuitar/DO.mp3",
-            "/instruments/AcusticGuitar/RE_1.mp3",
-            "/instruments/AcusticGuitar/MI_1.mp3",
-            "/instruments/AcusticGuitar/FA_1.mp3",
-            "/instruments/AcusticGuitar/SOL_1.mp3"
+            "/instruments/AcousticGuitar/Notes/RE.mp3",
+            "/instruments/AcousticGuitar/Notes/MI.mp3",
+            "/instruments/AcousticGuitar/Notes/FA.mp3",
+            "/instruments/AcousticGuitar/Notes/SOL.mp3",
+            "/instruments/AcousticGuitar/Notes/LA.mp3",
+            "/instruments/AcousticGuitar/Notes/SI.mp3",
+            "/instruments/AcousticGuitar/Notes/DO.mp3",
+            "/instruments/AcousticGuitar/Notes/RE_1.mp3",
+            "/instruments/AcousticGuitar/Notes/MI_1.mp3",
+            "/instruments/AcousticGuitar/Notes/FA_1.mp3",
+            "/instruments/AcousticGuitar/Notes/SOL_1.mp3"
     };
 
     private static final Media[] NOTES_MEDIA = new Media[NOTES.length];

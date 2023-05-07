@@ -1,16 +1,16 @@
 package com.example.demo.strings;
 
 public class Instruments {
-   static final String acustic_guitar = "/instruments/acustic_guitar.png";
-   static final String electric_guitar = "/instruments/electric_guitar.png";
-   static final String bass = "/instruments/bass.png";
-   static final String piano = "/instruments/piano.png";
+   static final String ACOUSTIC_GUITAR = "/instruments/AcousticGuitar/Images/acoustic_guitar.png";
+   static final String electric_guitar = "/instruments/ElectricGuitar/electric_guitar.png";
+   static final String bass = "/instruments/Bass/bass.png";
+   static final String piano = "/instruments/Piano/Images/piano.png";
 
-    public String getAcustic_guitar() {
-        return acustic_guitar;
+    public String getAcousticGuitar() {
+        return ACOUSTIC_GUITAR;
     }
 
-    public String getElectric_guitar() {
+    public String getElectricGuitar() {
         return electric_guitar;
     }
 
