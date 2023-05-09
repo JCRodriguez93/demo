@@ -1,6 +1,6 @@
 package com.example.demo.strings;
 
-public class Notes {
+public class PentagramNotes {
     final String DO = "/pentagrams/DO.png";
     final String RE = "/pentagrams/RE.png";
     final String MI = "/pentagrams/MI.png";

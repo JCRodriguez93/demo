@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class InstrumentsTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {Instruments.piano,Instruments.ACOUSTIC_GUITAR,
-            Instruments.bass,Instruments.electric_guitar})
+    @ValueSource(strings = {Instruments.PIANO,Instruments.ACOUSTIC_GUITAR,
+            Instruments.BASS,Instruments.electric_guitar})
     public void testImageReferenceExists(String imagePath) {
         assertNotNull(getClass().getResource(imagePath), "Image reference doesn't exist: " + imagePath);
     }

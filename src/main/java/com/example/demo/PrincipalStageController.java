@@ -1,25 +1,16 @@
 package com.example.demo;
 
-import com.example.demo.instruments.AcousticGuitar;
-import com.example.demo.instruments.Piano;
-import com.example.demo.strings.Instruments;
-import com.example.demo.strings.Notes;
-import com.example.demo.strings.Sounds;
+import com.example.demo.instruments.*;
+import com.example.demo.strings.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -47,13 +38,13 @@ public class PrincipalStageController implements Initializable {
     @FXML
     private ImageView instrument_pic = new ImageView();
 
-    Notes musicalNotes = new Notes();
+    PentagramNotes musicalPentagramNotes = new PentagramNotes();
     List<String> availableNotes = new ArrayList<>();
     List<String> buttonNotes = new ArrayList<>();
 
     private String correctNote;
     private final Instruments instruments = new Instruments();
-
+    private boolean isAnimating = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -111,10 +102,10 @@ public class PrincipalStageController implements Initializable {
     private void onClickListen() {
 
         switch (instrument_selec.getValue()){
-            case "Acoustic Guitar" -> AcousticGuitar.play(getCorrectNote(correctNote));
-            case "Bass" -> System.out.println("por hacer bajo");
+            case "Acoustic Guitar" -> AcousticGuitar.play(getSubstringNotes(correctNote));
+            case "Bass" -> Bass.play(getSubstringNotes(correctNote));
             case "Electric Guitar" -> System.out.println("por hacer guitarra electrica");
-            case "Piano" -> Piano.play(getCorrectNote(correctNote));
+            case "Piano" -> Piano.play(getSubstringNotes(correctNote));
         }
 
 
@@ -122,42 +113,52 @@ public class PrincipalStageController implements Initializable {
 
     private void checkResponse(Button button) {
         String response = button.getText();
+        String correct = getSubstringNotes(correctNote);
 
-        if (correctNote.contains(response)) {
+        if (correct.equals(response)) {
             this.resultado.setFill(Color.GREEN);
             this.resultado.setText("CORRECTO");
             isCorrect(button);
-
         } else {
             this.resultado.setFill(Color.RED);
             this.resultado.setText("INCORRECTO");
             isIncorrect(button);
-
         }
         restartGame();
         changeImage();
     }
 
     private void isIncorrect(Button button) {
-        Sounds.playIncorrect();
+        GameSounds.playIncorrect();
         Platform.runLater(() -> {
-
-            Background originalBackground = button.getBackground();
-            button.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> button.setBackground(originalBackground));
-            pause.play();
+            if (!isAnimating) {
+                isAnimating = true;
+                Background originalBackground = button.getBackground();
+                button.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(event -> {
+                    button.setBackground(originalBackground);
+                    isAnimating = false;
+                });
+                pause.play();
+            }
         });
     }
 
     private void isCorrect(Button button) {
-        Sounds.playCorrect();
+        GameSounds.playCorrect();
         Platform.runLater(() -> {
-            Background originalBackground = button.getBackground();
-            button.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-            PauseTransition pause = new PauseTransition(Duration.seconds(1));
-            pause.setOnFinished(event -> button.setBackground(originalBackground));
-            pause.play();
+            if (!isAnimating) {
+                isAnimating = true;
+                Background originalBackground = button.getBackground();
+                button.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(event -> {
+                    button.setBackground(originalBackground);
+                    isAnimating = false;
+                });
+                pause.play();
+            }
         });
     }
 
@@ -182,10 +183,10 @@ public class PrincipalStageController implements Initializable {
     }
 
     private void updateButtons() {
-        AOption.setText(getNoteImage(buttonNotes.get(0)));
-        BOption.setText(getNoteImage(buttonNotes.get(1)));
-        COption.setText(getNoteImage(buttonNotes.get(2)));
-        DOption.setText(getNoteImage(buttonNotes.get(3)));
+        AOption.setText(getSubstringNotes(buttonNotes.get(0)));
+        BOption.setText(getSubstringNotes(buttonNotes.get(1)));
+        COption.setText(getSubstringNotes(buttonNotes.get(2)));
+        DOption.setText(getSubstringNotes(buttonNotes.get(3)));
     }
 
     private void suffleNotes() {
@@ -198,26 +199,20 @@ public class PrincipalStageController implements Initializable {
 
     private void getAvailableNotes() {
         availableNotes = new ArrayList<>(
-                Arrays.asList(musicalNotes.getDO(),
-                        musicalNotes.getRE(),
-                        musicalNotes.getMI(),
-                        musicalNotes.getFA(),
-                        musicalNotes.getSOL(),
-                        musicalNotes.getLA(),
-                        musicalNotes.getSI(),
-                        musicalNotes.getRE_8(),
-                        musicalNotes.getMI_8(),
-                        musicalNotes.getFA_8(),
-                        musicalNotes.getSOL_8()));
+                Arrays.asList(musicalPentagramNotes.getDO(),
+                        musicalPentagramNotes.getRE(),
+                        musicalPentagramNotes.getMI(),
+                        musicalPentagramNotes.getFA(),
+                        musicalPentagramNotes.getSOL(),
+                        musicalPentagramNotes.getLA(),
+                        musicalPentagramNotes.getSI(),
+                        musicalPentagramNotes.getRE_8(),
+                        musicalPentagramNotes.getMI_8(),
+                        musicalPentagramNotes.getFA_8(),
+                        musicalPentagramNotes.getSOL_8()));
     }
 
-    private String getNoteImage(String imagen) {
-        int inicio = imagen.lastIndexOf("/") + 1;
-        int fin = imagen.lastIndexOf(".");
-        return imagen.substring(inicio, fin);
-    }
-
-    private String getCorrectNote(String note) {
+    private String getSubstringNotes(String note) {
         int inicio = note.lastIndexOf("/") + 1;
         int fin = note.lastIndexOf(".");
         return note.substring(inicio, fin);
