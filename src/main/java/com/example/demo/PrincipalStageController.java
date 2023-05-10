@@ -49,12 +49,10 @@ public class PrincipalStageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        loadInstrumentPics();
         getAvailableNotes();
         restartGame();
         selectInstrument();
-        loadInstrumentPics();
-
-
     }
 
     private void loadInstrumentPics() {
@@ -104,7 +102,7 @@ public class PrincipalStageController implements Initializable {
         switch (instrument_selec.getValue()){
             case "Acoustic Guitar" -> AcousticGuitar.play(getSubstringNotes(correctNote));
             case "Bass" -> Bass.play(getSubstringNotes(correctNote));
-            case "Electric Guitar" -> System.out.println("por hacer guitarra electrica");
+            case "Electric Guitar" -> ElectricGuitar.play(getSubstringNotes(correctNote));
             case "Piano" -> Piano.play(getSubstringNotes(correctNote));
         }
 
@@ -172,7 +170,7 @@ public class PrincipalStageController implements Initializable {
 
     public void restartGame() {
         getAvailableNotes();
-        suffleNotes();
+        shuffleNotes();
         Collections.shuffle(buttonNotes);
         Random random = new Random();
         int i = random.nextInt(buttonNotes.size());
@@ -189,7 +187,7 @@ public class PrincipalStageController implements Initializable {
         DOption.setText(getSubstringNotes(buttonNotes.get(3)));
     }
 
-    private void suffleNotes() {
+    private void shuffleNotes() {
         Collections.shuffle(availableNotes);
         buttonNotes = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
