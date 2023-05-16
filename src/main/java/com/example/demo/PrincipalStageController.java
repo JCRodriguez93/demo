@@ -66,7 +66,7 @@ public class PrincipalStageController implements Initializable {
         helpBroker.setDisplayed(true);
         //TODO: crear un atajo de teclado para el botón F1 del teclado y abrir el sistema de ayuda
         //KeyCombination keyCombination = new KeyCodeCombination(KeyCode.F1);
-
+        System.out.println("por hacer");
     }
 
     @Override
