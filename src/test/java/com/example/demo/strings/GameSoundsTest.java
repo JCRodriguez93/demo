@@ -3,7 +3,6 @@ package com.example.demo.strings;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.Test;
-
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;

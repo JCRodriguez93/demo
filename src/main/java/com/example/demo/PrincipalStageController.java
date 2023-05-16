@@ -4,7 +4,8 @@ import com.example.demo.instruments.*;
 import com.example.demo.strings.*;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -14,13 +15,20 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import javax.help.HelpSet;
+import javax.help.HelpBroker;
+import javax.help.HelpSetException;
 
 
 public class PrincipalStageController implements Initializable {
 
+    @FXML
+    private MenuItem restartGame;
+    @FXML
+    private MenuItem about;
     @FXML
     private ImageView note;
     @FXML
@@ -32,7 +40,7 @@ public class PrincipalStageController implements Initializable {
     @FXML
     private Button DOption;
     @FXML
-    private Text resultado;
+    private Text result;
     @FXML
     private Spinner<String> instrument_selec = new Spinner<>();
     @FXML
@@ -46,14 +54,39 @@ public class PrincipalStageController implements Initializable {
     private final Instruments instruments = new Instruments();
     private boolean isAnimating = false;
 
+    @FXML
+    private void handleRestartGame() {
+        restartGame();
+    }
+    @FXML
+    private void handleAbout() throws HelpSetException, MalformedURLException {
+        URL hsURL = getClass().getResource("/help/help_set.hs");
+        HelpSet helpSet = new HelpSet(getClass().getClassLoader(), hsURL);
+        HelpBroker helpBroker = helpSet.createHelpBroker();
+        helpBroker.setDisplayed(true);
+        //TODO: crear un atajo de teclado para el botón F1 del teclado y abrir el sistema de ayuda
+        //KeyCombination keyCombination = new KeyCodeCombination(KeyCode.F1);
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         loadInstrumentPics();
         getAvailableNotes();
         restartGame();
         selectInstrument();
+        restartGame.setOnAction(event -> handleRestartGame());
+        about.setOnAction(event -> {
+            try {
+                handleAbout();
+            } catch (HelpSetException | MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
     }
+
+
 
     private void loadInstrumentPics() {
         Map<String, String> instrumentImageMap = new HashMap<>();
@@ -114,12 +147,12 @@ public class PrincipalStageController implements Initializable {
         String correct = getSubstringNotes(correctNote);
 
         if (correct.equals(response)) {
-            this.resultado.setFill(Color.GREEN);
-            this.resultado.setText("CORRECTO");
+            this.result.setFill(Color.GREEN);
+            this.result.setText("CORRECTO");
             isCorrect(button);
         } else {
-            this.resultado.setFill(Color.RED);
-            this.resultado.setText("INCORRECTO");
+            this.result.setFill(Color.RED);
+            this.result.setText("INCORRECTO");
             isIncorrect(button);
         }
         restartGame();
