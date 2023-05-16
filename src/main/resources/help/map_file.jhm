@@ -1,0 +1,5 @@
+<map version="1.0">
+	<mapID target="howitworks" url="html/howitworks.html" />
+	<mapID target="exists" url="html/exists.html" />
+	<mapID target="updates" url="html/updates.html" />
+</map>
