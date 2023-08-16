@@ -82,10 +82,16 @@
             <version>4.8.1</version>
         </dependency>
 
+
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>demo</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.woodstock.dependlibs</groupId>
+            <artifactId>jhall</artifactId>
+            <version>2.0.05</version>
         </dependency>
 
     </dependencies>

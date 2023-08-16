@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="523.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.PrincipalStageController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="523.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.PrincipalStageController">
     <Pane layoutX="-7.0" layoutY="93.0" prefHeight="430.0" prefWidth="884.0" style="-fx-background-color: white;">
         <ImageView fx:id="note" fitHeight="198.0" fitWidth="379.0" layoutX="109.0" pickOnBounds="true" preserveRatio="true" />
         <GridPane layoutX="7.0" layoutY="304.0" prefHeight="90.0" prefWidth="884.0">
@@ -34,16 +43,17 @@
     </Pane>
     <Pane layoutX="-6.0" layoutY="-5.0" prefHeight="98.0" prefWidth="884.0" style="-fx-background-color: black;">
         <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="878.0">
-            <Menu fx:id="restart" mnemonicParsing="false" text="restart">
+            <Menu fx:id="restart" mnemonicParsing="false" text="reiniciar">
                 <items>
-                    <MenuItem fx:id="restartGame" mnemonicParsing="false" text="restart the game" />
+                    <MenuItem fx:id="restartGame" mnemonicParsing="false" text="reiniciar el juego" />
                 </items>
             </Menu>
-            <Menu fx:id="help" mnemonicParsing="false" text="Help">
-                <items>
-                    <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
-                </items>
-            </Menu>
+         <Menu mnemonicParsing="false" text="utilidades">
+           <items>
+                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#getJavaHelp" text="mostrar ayuda" />
+             <MenuItem fx:id="circlefifth" mnemonicParsing="false" onAction="#onClickDiagram" text="mostrar circulo de quintas" />
+           </items>
+         </Menu>
         </MenuBar>
     </Pane>
 </AnchorPane>

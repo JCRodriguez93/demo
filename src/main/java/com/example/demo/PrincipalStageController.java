@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.help.HelpSystem;
 import com.example.demo.instruments.*;
 import com.example.demo.strings.*;
 import javafx.animation.PauseTransition;
@@ -7,28 +8,30 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.net.MalformedURLException;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import javax.help.HelpSet;
-import javax.help.HelpBroker;
-import javax.help.HelpSetException;
+import java.util.Map;
+import javax.help.*;
 
 
 public class PrincipalStageController implements Initializable {
 
     @FXML
     private MenuItem restartGame;
-    @FXML
-    private MenuItem about;
     @FXML
     private ImageView note;
     @FXML
@@ -58,16 +61,6 @@ public class PrincipalStageController implements Initializable {
     private void handleRestartGame() {
         restartGame();
     }
-    @FXML
-    private void handleAbout() throws HelpSetException, MalformedURLException {
-        URL hsURL = getClass().getResource("/help/help_set.hs");
-        HelpSet helpSet = new HelpSet(getClass().getClassLoader(), hsURL);
-        HelpBroker helpBroker = helpSet.createHelpBroker();
-        helpBroker.setDisplayed(true);
-        //TODO: crear un atajo de teclado para el botón F1 del teclado y abrir el sistema de ayuda
-        //KeyCombination keyCombination = new KeyCodeCombination(KeyCode.F1);
-        System.out.println("por hacer");
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,17 +69,8 @@ public class PrincipalStageController implements Initializable {
         restartGame();
         selectInstrument();
         restartGame.setOnAction(event -> handleRestartGame());
-        about.setOnAction(event -> {
-            try {
-                handleAbout();
-            } catch (HelpSetException | MalformedURLException e) {
-                throw new RuntimeException(e);
-            }
-        });
 
     }
-
-
 
     private void loadInstrumentPics() {
         Map<String, String> instrumentImageMap = new HashMap<>();
@@ -107,8 +91,10 @@ public class PrincipalStageController implements Initializable {
         instrument_selec.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<>(instrumentList));
 
     }
-
-
+    @FXML
+    private void getJavaHelp() throws HelpSetException {
+        HelpSystem.showJavaHelp();
+    }
     @FXML
     private void onClickA() {
         checkResponse(AOption);
@@ -130,13 +116,23 @@ public class PrincipalStageController implements Initializable {
     }
 
     @FXML
+    private void onClickDiagram() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("fifthCircle.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
     private void onClickListen() {
 
         switch (instrument_selec.getValue()){
-            case "Acoustic Guitar" -> AcousticGuitar.play(getSubstringNotes(correctNote));
-            case "Bass" -> Bass.play(getSubstringNotes(correctNote));
-            case "Electric Guitar" -> ElectricGuitar.play(getSubstringNotes(correctNote));
-            case "Piano" -> Piano.play(getSubstringNotes(correctNote));
+            case "Acoustic Guitar" -> AcousticGuitar.play(StringsGetNotes.getSubstringNotes(correctNote));
+            case "Bass" -> Bass.play(StringsGetNotes.getSubstringNotes(correctNote));
+            case "Electric Guitar" -> ElectricGuitar.play(StringsGetNotes.getSubstringNotes(correctNote));
+            case "Piano" -> Piano.play(StringsGetNotes.getSubstringNotes(correctNote));
         }
 
 
@@ -144,7 +140,7 @@ public class PrincipalStageController implements Initializable {
 
     private void checkResponse(Button button) {
         String response = button.getText();
-        String correct = getSubstringNotes(correctNote);
+        String correct = StringsGetNotes.getSubstringNotes(correctNote);
 
         if (correct.equals(response)) {
             this.result.setFill(Color.GREEN);
@@ -214,10 +210,10 @@ public class PrincipalStageController implements Initializable {
     }
 
     private void updateButtons() {
-        AOption.setText(getSubstringNotes(buttonNotes.get(0)));
-        BOption.setText(getSubstringNotes(buttonNotes.get(1)));
-        COption.setText(getSubstringNotes(buttonNotes.get(2)));
-        DOption.setText(getSubstringNotes(buttonNotes.get(3)));
+        AOption.setText(StringsGetNotes.getSubstringNotes(buttonNotes.get(0)));
+        BOption.setText(StringsGetNotes.getSubstringNotes(buttonNotes.get(1)));
+        COption.setText(StringsGetNotes.getSubstringNotes(buttonNotes.get(2)));
+        DOption.setText(StringsGetNotes.getSubstringNotes(buttonNotes.get(3)));
     }
 
     private void shuffleNotes() {
@@ -241,12 +237,6 @@ public class PrincipalStageController implements Initializable {
                         musicalPentagramNotes.getMI_8(),
                         musicalPentagramNotes.getFA_8(),
                         musicalPentagramNotes.getSOL_8()));
-    }
-
-    private String getSubstringNotes(String note) {
-        int inicio = note.lastIndexOf("/") + 1;
-        int fin = note.lastIndexOf(".");
-        return note.substring(inicio, fin);
     }
 
 }
