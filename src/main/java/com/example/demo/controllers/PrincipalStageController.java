@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.controllers;
 
+import com.example.demo.App;
 import com.example.demo.help.HelpSystem;
 import com.example.demo.instruments.*;
 import com.example.demo.strings.*;

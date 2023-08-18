@@ -6,6 +6,10 @@ import javafx.scene.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+// --module-path "C:\javafx-sdk-19.0.2.1\lib" --add-modules javafx-controls,javafx.fxml
+// no hace falta se supone
+
+//hacer el diagrama de quintas en un archivo CSV
 
 public class App extends Application {
 

@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="523.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.PrincipalStageController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="523.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controllers.PrincipalStageController">
     <Pane layoutX="-7.0" layoutY="93.0" prefHeight="430.0" prefWidth="884.0" style="-fx-background-color: white;">
         <ImageView fx:id="note" fitHeight="198.0" fitWidth="379.0" layoutX="109.0" pickOnBounds="true" preserveRatio="true" />
         <GridPane layoutX="7.0" layoutY="304.0" prefHeight="90.0" prefWidth="884.0">
