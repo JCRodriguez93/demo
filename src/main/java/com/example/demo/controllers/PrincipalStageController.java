@@ -127,6 +127,16 @@ public class PrincipalStageController implements Initializable {
     }
 
     @FXML
+    private void onClickMetronome() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("metronome.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+    }
+    @FXML
     private void onClickListen() {
 
         switch (instrument_selec.getValue()){

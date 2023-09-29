@@ -27,7 +27,7 @@
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
-            <Button fx:id="AOption" mnemonicParsing="false" onAction="#onClickA" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button id="optionA" fx:id="AOption" mnemonicParsing="false" onAction="#onClickA" prefHeight="67.0" prefWidth="159.0" stylesheets="@styles.css" text="Opción A" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="BOption" mnemonicParsing="false" onAction="#onClickB" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="COption" mnemonicParsing="false" onAction="#onClickC" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="DOption" mnemonicParsing="false" onAction="#onClickD" prefHeight="67.0" prefWidth="159.0" text="Opción A" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
@@ -52,6 +52,7 @@
            <items>
                     <MenuItem fx:id="about" mnemonicParsing="false" onAction="#getJavaHelp" text="mostrar ayuda" />
              <MenuItem fx:id="circlefifth" mnemonicParsing="false" onAction="#onClickDiagram" text="mostrar circulo de quintas" />
+               <MenuItem fx:id="metronome" mnemonicParsing="false" onAction="#onClickMetronome" text="metronomo" />
            </items>
          </Menu>
         </MenuBar>
